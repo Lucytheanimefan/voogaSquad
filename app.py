@@ -21,7 +21,7 @@ sys.setdefaultencoding('utf-8')
 @app.route("/home")
 @app.route("/search")
 def home():
-	return render_template('search.html')
+	return render_template('index3.html')
 
 
 @app.route('/search',methods=['POST','GET'])
