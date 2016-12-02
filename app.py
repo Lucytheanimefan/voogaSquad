@@ -5,15 +5,12 @@ import csv
 import sys
 import server
 from server import *
-from parser import *
 import sys
 import json
 from JSONEncoder import JSONEncoder
 
 app = Flask(__name__)
 
-file = open('Kick-Ass Coders Internship Application_new.csv', 'rb')
-reader = csv.reader(file)
 db = server.get_db()
 
 reload(sys)
