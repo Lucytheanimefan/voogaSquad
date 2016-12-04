@@ -37,18 +37,17 @@ def main():
 
 @app.route("/login",methods=['POST','GET'])
 def login():
-	if open_account(request.json['username'], request.json['password']):
-		set_username(request.json['username'])
-		print username
-		print "redirect!"
-		return main()
-	return None
+	open_account(request.json['username'], request.json['password']):
+	set_username(request.json['username'])
+	print username
+	print "redirect!"
+	return main()
+
 
 @app.route("/createaccount",methods=['POST','GET'])
 def createaccount():
-	if create_account(request.json['username'], request.json['password']):
-		return main()
-	return None
+	create_account(request.json['username'], request.json['password']):
+	return main()
 
 
 @app.route('/populate',methods=['POST','GET'])
