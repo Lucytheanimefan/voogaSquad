@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from flask import render_template,jsonify
+from flask import render_template,jsonify,request
 import csv
 import sys
 import server
@@ -8,6 +8,8 @@ from server import *
 import sys
 import json
 from JSONEncoder import JSONEncoder
+from login import *
+
 
 app = Flask(__name__)
 
@@ -16,23 +18,32 @@ db = server.get_db()
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-
 @app.route("/")
-@app.route("/home")
-@app.route("/search")
+@app.route("/login")
 def home():
+	return render_template('login.html')
+
+
+@app.route("/home")
+@app.route("/main")
+def main():
 	return render_template('index3.html')
 
+@app.route("/login",methods=['POST','GET'])
+def login():
+	open_account(request.json['username'], request.json['password'])
+	set_username(request.json['username'])
+	return render_template("index3.html")
 
-@app.route('/search',methods=['POST','GET'])
+@app.route("/createaccount",methods=['POST','GET'])
+def createaccount():
+	return create_account(request.json['username'], request.json['password'])
+
+
+@app.route('/populate',methods=['POST','GET'])
 def search():
 	global db
 	doc = db.scholarprofiles.find()
-	'''
-	for pro in doc:
-		print type(pro)
-		data.append(dict(pro))
-	'''
 	print '-------------------CURSOR------------'
 	data = [JSONEncoder().encode(prof) for prof in doc]
 	return jsonify(result = data)
