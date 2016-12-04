@@ -75,8 +75,11 @@ def createaccount():
 @app.route("/creategame",methods=['POST','GET'])
 def create_games():
 	print "CREATING GAMES"
+	global db
 	o = xmltodict.parse(request.json["game"])
+	print o
 	gamejson = json.dumps(o)
+	print gamejson
 	db.games.insert({
 		"game":gamejson
 		})
