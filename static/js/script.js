@@ -7,11 +7,12 @@ function login(username, password) {
         dataType: 'json',
         complete: function() {
             console.log(this.url);
+            window.location.href = "/home";
         },
         success: function(response) {
             console.log('in ajax login user');
             console.log(response);
-            alert(response);
+            
         }
     });
 
@@ -27,8 +28,7 @@ function createUser(username, password) {
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         complete: function() {
-            console.log(this.url);
-            console.log(data);
+            window.location.href = "/home";
         },
         success: function(response) {
             console.log('in ajax create user');

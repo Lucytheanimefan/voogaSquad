@@ -33,7 +33,7 @@ def home():
 @app.route("/home")
 def main():
 	print "render main template"
-	return render_template('index3.html')
+	return render_template('index3.html', username=username)
 
 @app.route("/login",methods=['POST','GET'])
 def login():
@@ -42,7 +42,7 @@ def login():
 	set_username(request.json['username'])
 	print username
 	print "redirect!"
-	return main()
+	return render_template('index3.html')
 
 
 @app.route("/createaccount",methods=['POST','GET'])
@@ -50,7 +50,8 @@ def createaccount():
 	print "creating account!"
 	if request.method == "POST":
 		print "post request!"
-        print request.get_json()
+	elif request.methond == "GET":
+		print "GET request"
 	print "creating account with: " + request.json['username']+" "+request.json['password']
 	create_account(request.json['username'], request.json['password'])
 	return main()
