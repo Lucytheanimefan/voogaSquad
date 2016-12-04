@@ -10,10 +10,10 @@ def create_account(username, password):
     :return: description of success of account creation
     """
     if (db.users.find({"username": username}).count() > 0):
-        return "User already exists!"
+        return 0
     else:
         db.users.insert({"username": username, "password": password})
-        return "Success! Your account has been created."
+        return 1
 
 def open_account(username, password):
     """
@@ -23,6 +23,6 @@ def open_account(username, password):
     :return: description of success of logging in
     """
     if (db.users.find({"username": username})[0]["password"] != password):
-        return "Invalid username/password."
+        return 0
     else:
-		return "Success!"
+		return 1

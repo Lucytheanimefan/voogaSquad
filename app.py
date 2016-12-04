@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from flask import render_template,jsonify,request
+from flask import render_template,jsonify,request, redirect,url_for
 import csv
 import sys
 import server
@@ -15,8 +15,14 @@ app = Flask(__name__)
 
 db = server.get_db()
 
+username = ""
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
+
+def set_username(new_username):
+	global username
+	username = new_username
 
 @app.route("/")
 @app.route("/login")
@@ -25,19 +31,24 @@ def home():
 
 
 @app.route("/home")
-@app.route("/main")
 def main():
+	print "render main template"
 	return render_template('index3.html')
 
 @app.route("/login",methods=['POST','GET'])
 def login():
-	open_account(request.json['username'], request.json['password'])
-	set_username(request.json['username'])
-	return render_template("index3.html")
+	if open_account(request.json['username'], request.json['password']):
+		set_username(request.json['username'])
+		print username
+		print "redirect!"
+		return main()
+	return None
 
 @app.route("/createaccount",methods=['POST','GET'])
 def createaccount():
-	return create_account(request.json['username'], request.json['password'])
+	if create_account(request.json['username'], request.json['password']):
+		return main()
+	return None
 
 
 @app.route('/populate',methods=['POST','GET'])
