@@ -47,6 +47,7 @@ def login():
 
 @app.route("/createaccount",methods=['POST','GET'])
 def createaccount():
+	print "creating account!"
 	print "creating account with: " + request.json['username']+" "+request.json['password']
 	create_account(request.json['username'], request.json['password'])
 	return main()
