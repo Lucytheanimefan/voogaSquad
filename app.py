@@ -82,9 +82,6 @@ def create_games():
 	gamejson = request.get_json()
 	print gamejson
 	db.games.insert(gamejson)
-	db.games.insert({
-		"game":gamejson
-		})
 
 @app.route('/populate',methods=['POST','GET'])
 def search():
