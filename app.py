@@ -16,7 +16,7 @@ app = Flask(__name__)
 db = server.get_db()
 
 username = ""
-games=[]
+games={}
 
 maincollection = None
 
@@ -35,9 +35,11 @@ def set_maincollection(collection):
 
 def set_games():
 	global games
-	numgames = db.games.count();
-	for i in numgames:
-		games.append("Game "+str(i))
+	games = db[username].find({ "type": "game" });
+	i = 0
+	for game in games:
+		games["Game "+str(i)] = JSONEncoder().encode(game)
+		i = i+1
 
 
 @app.route("/")
