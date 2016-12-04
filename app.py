@@ -77,10 +77,11 @@ def create_games():
 	print "CREATING GAMES"
 	global db
 	print request.get_json()
-	o = xmltodict.parse(request.json["game"])
-	print o
-	gamejson = json.dumps(o)
+	#o = xmltodict.parse(request.json["game"])
+	#print o
+	gamejson = request.get_json()
 	print gamejson
+	db.games.insert(gamejson)
 	db.games.insert({
 		"game":gamejson
 		})
