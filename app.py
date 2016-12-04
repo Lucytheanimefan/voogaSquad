@@ -9,13 +9,14 @@ import sys
 import json
 from JSONEncoder import JSONEncoder
 from login import *
-
+import json, xmltodict
 
 app = Flask(__name__)
 
 db = server.get_db()
 
 username = ""
+games=[]
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -23,6 +24,14 @@ sys.setdefaultencoding('utf-8')
 def set_username(new_username):
 	global username
 	username = new_username
+
+
+def set_games():
+	global games
+	numgames = db.games.count();
+	for i in numgames:
+		games.append("Game "+str(i))
+
 
 @app.route("/")
 @app.route("/login")
@@ -32,8 +41,15 @@ def home():
 
 @app.route("/home")
 def main():
+	games={"game1","game2","game3"}
 	print "render main template"
-	return render_template('index3.html', username=username)
+	return render_template('index3.html', username=username, games = games)
+
+
+@app.route("/game")
+def game():
+	set_games()
+	return render_template('games.html', username=username, games=games)
 
 @app.route("/login",methods=['POST','GET'])
 def login():
@@ -56,6 +72,14 @@ def createaccount():
 	create_account(request.json['username'], request.json['password'])
 	return main()
 
+@app.route("/creategame",methods=['POST','GET'])
+def create_games():
+	print "CREATING GAMES"
+	o = xmltodict.parse(request.json["game"])
+	gamejson = json.dumps(o)
+	db.games.insert({
+		"game":gamejson
+		})
 
 @app.route('/populate',methods=['POST','GET'])
 def search():
