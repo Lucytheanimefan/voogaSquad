@@ -16,7 +16,7 @@ app = Flask(__name__)
 db = server.get_db()
 
 username = ""
-games={}
+mygames={}
 
 maincollection = None
 
@@ -34,12 +34,14 @@ def set_maincollection(collection):
 	maincollection = collection
 
 def set_games():
-	global games
+	print "setting games"
+	global mygames
 	games = db[username].find({ "type": "game" });
 	i = 0
 	for game in games:
-		games["Game "+str(i)] = JSONEncoder().encode(game)
+		mygames["Game "+str(i)] = JSONEncoder().encode(game)
 		i = i+1
+	print mygames
 
 
 @app.route("/")
@@ -50,15 +52,17 @@ def home():
 
 @app.route("/home")
 def main():
-	games={"game1","game2","game3"}
+	global mygames
+	set_games()
 	print "render main template"
-	return render_template('index3.html', username=username, games = games)
+	return render_template('index3.html', username=username, games = mygames)
 
 
 @app.route("/game")
 def game():
+	global mygames
 	set_games()
-	return render_template('games.html', username=username, games=games)
+	return render_template('games.html', username=username, games=mygames)
 
 @app.route("/login",methods=['POST','GET'])
 def login():
