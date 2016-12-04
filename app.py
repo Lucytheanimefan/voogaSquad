@@ -18,13 +18,20 @@ db = server.get_db()
 username = ""
 games=[]
 
+maincollection = None
+
+
 reload(sys)
 sys.setdefaultencoding('utf-8')
+
 
 def set_username(new_username):
 	global username
 	username = new_username
 
+def set_maincollection(collection):
+	global maincollection
+	maincollection = collection
 
 def set_games():
 	global games
@@ -56,6 +63,7 @@ def login():
 	print "logging in with: " + request.json['username']+" "+request.json['password']
 	open_account(request.json['username'], request.json['password'])
 	set_username(request.json['username'])
+	set_maincollection(db[username])
 	print username
 	print "redirect!"
 	return render_template('index3.html')
@@ -77,47 +85,9 @@ def create_games():
 	print "CREATING GAMES"
 	global db
 	print request.get_json()
-	#o = xmltodict.parse(request.json["game"])
-	#print o
 	gamejson = request.get_json()
 	print gamejson
-	db.games.insert(gamejson)
-
-@app.route('/populate',methods=['POST','GET'])
-def search():
-	global db
-	doc = db.scholarprofiles.find()
-	print '-------------------CURSOR------------'
-	data = [JSONEncoder().encode(prof) for prof in doc]
-	return jsonify(result = data)
-
-'''
-@app.route('/populatedb')
-def populate():
-	global reader
-	global db
-	for row in reader:
-		db.scholarprofiles.insert({
-			'Email':row[1].decode('latin-1').encode('utf-8'),
-			'Name':parseName(row[2].decode('latin-1').encode('utf-8')),
-			'Phone':row[3].decode('latin-1').encode('utf-8'),
-			'Unviersity':row[4].decode('latin-1').encode('utf-8'),
-			'Graduation':row[5].decode('latin-1').encode('utf-8'),
-			'Intended Major':row[6].decode('latin-1').encode('utf-8'),
-			'Parsed Intended Major':splitMajorMinor(row[6].decode('latin-1').encode('utf-8')),
-			'Declared Major':row[7].decode('latin-1').encode('utf-8'),
-			'Relevant Coursework':parseToArray(row[8].decode('latin-1').encode('utf-8')),
-			'Interested Areas of Tech':parseToArray(row[9].decode('latin-1').encode('utf-8')),
-			'Interested Areas of Industry':parseToArray(row[10].decode('latin-1').encode('utf-8')),
-			'Special Skills/Qualifications':row[11].decode('latin-1').encode('utf-8'),
-			'Computer programming skillset':row[12].decode('latin-1').encode('utf-8'),
-			'Why KAC':row[13].decode('latin-1').encode('utf-8'),
-			'Interest in specific company/position':row[14].decode('latin-1').encode('utf-8'),
-			'Location Preference':parseToArray(row[15].decode('latin-1').encode('utf-8')),
-			'3 interesting things':row[16].decode('latin-1').encode('utf-8'),
-			'Reference':row[17].decode('latin-1').encode('utf-8')
-			})
-'''
+	maincollection.insert(gamejson)
 
 
 if __name__ == "__main__":
