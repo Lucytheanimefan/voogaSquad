@@ -37,7 +37,8 @@ def main():
 
 @app.route("/login",methods=['POST','GET'])
 def login():
-	open_account(request.json['username'], request.json['password']):
+	print "logging in with: " + request.json['username']+" "+request.json['password']
+	open_account(request.json['username'], request.json['password'])
 	set_username(request.json['username'])
 	print username
 	print "redirect!"
@@ -46,7 +47,8 @@ def login():
 
 @app.route("/createaccount",methods=['POST','GET'])
 def createaccount():
-	create_account(request.json['username'], request.json['password']):
+	print "creating account with: " + request.json['username']+" "+request.json['password']
+	create_account(request.json['username'], request.json['password'])
 	return main()
 
 
