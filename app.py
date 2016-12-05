@@ -75,13 +75,16 @@ def game():
 
 @app.route("/login",methods=['POST','GET'])
 def login():
-	print "logging in with: " + request.json['username']+" "+request.json['password']
-	open_account(request.json['username'], request.json['password'])
-	set_username(request.json['username'])
-	set_maincollection(db[username])
-	set_games()
-	print username
-	print "redirect!"
+	if username=="":
+		print "logging in with: " + request.json['username']+" "+request.json['password']
+		open_account(request.json['username'], request.json['password'])
+		set_username(request.json['username'])
+		set_maincollection(db[username])
+		set_games()
+		print username
+		print "redirect!"
+	else:
+		print "already logged in" 
 	return render_template('index3.html', games = mygames)
 
 
