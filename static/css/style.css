@@ -7,3 +7,8 @@ form{
 #go{
   text-align: center !important;
 }
+
+.xmlData{
+	height: 500px !important;
+	overflow-y: scroll;
+}

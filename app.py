@@ -57,6 +57,8 @@ def home():
 
 @app.route("/home")
 def main():
+	if username=="":
+		return home()
 	global mygames
 	set_games()
 	print "render main template"
@@ -65,6 +67,8 @@ def main():
 
 @app.route("/game")
 def game():
+	if username=="":
+		return home()
 	global mygames
 	set_games()
 	return render_template('games.html', username=username, games=mygames)
