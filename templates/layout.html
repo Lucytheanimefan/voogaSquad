@@ -57,7 +57,7 @@
                                 <li><a><i class="fa fa-edit"></i> Games <span class="fa fa-chevron-down"></span></a>
                                     <ul class="nav child_menu">
                                         {% for key, value in games.iteritems() %}
-                                        <li><a href="/game?game={{ key }}">{{ game }}</a>
+                                        <li><a href="/game?game={{ key }}">{{ key }}</a>
                                             <li>
                                         {% endfor %}
                                     </ul>
