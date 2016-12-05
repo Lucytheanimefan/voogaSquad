@@ -36,16 +36,21 @@ def set_maincollection(collection):
 def set_games():
 	print "setting games"
 	global mygames
-	games = db[username].find({ "type": "game" });
-	i = 0
-	for game in games:
-		mygames["Game "+str(i)] = JSONEncoder().encode(game)
-		i = i+1
-	print mygames
+	global username
+	print "Username! "+username
+	mygames = {}
+	if (db[username].count() > 0):
+		if (db[username].find({ "type": "game" }).count()>0):
+			games = db[username].find({ "type": "game" });
+			i = 0
+			for game in games:
+				mygames["Game "+str(i)] = JSONEncoder().encode(game)
+				i = i+1
+			print "MY GAMES"
+			print mygames
 
 
 @app.route("/")
-@app.route("/login")
 def home():
 	return render_template('login.html')
 
@@ -70,9 +75,10 @@ def login():
 	open_account(request.json['username'], request.json['password'])
 	set_username(request.json['username'])
 	set_maincollection(db[username])
+	set_games()
 	print username
 	print "redirect!"
-	return render_template('index3.html')
+	return render_template('index3.html', games = mygames)
 
 
 @app.route("/createaccount",methods=['POST','GET'])

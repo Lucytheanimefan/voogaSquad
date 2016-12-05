@@ -28,7 +28,7 @@ function createUser(username, password) {
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         complete: function() {
-            window.location.href = "/home";
+            //window.location.href = "/home";
         },
         success: function(response) {
             console.log('in ajax create user');
