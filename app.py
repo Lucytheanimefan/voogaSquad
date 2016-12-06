@@ -104,6 +104,8 @@ def create_games():
 
 @app.route("/recordscore",methods = ['POST','GET'])
 def record_score():
+	print "In record_score"
+	print request.get_json()
 	record_game_score(maincollection, request.get_json())
 
 
