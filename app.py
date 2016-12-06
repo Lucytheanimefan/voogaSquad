@@ -10,6 +10,8 @@ import json
 from JSONEncoder import JSONEncoder
 from login import *
 import json, xmltodict
+import stats
+from stats import *
 
 app = Flask(__name__)
 
@@ -76,13 +78,10 @@ def game():
 @app.route("/login",methods=['POST','GET'])
 def login():
 	if username=="":
-		print "logging in with: " + request.json['username']+" "+request.json['password']
 		open_account(request.json['username'], request.json['password'])
 		set_username(request.json['username'])
 		set_maincollection(db[username])
 		set_games()
-		print username
-		print "redirect!"
 	else:
 		print "already logged in" 
 	return render_template('index3.html', games = mygames)
@@ -90,11 +89,6 @@ def login():
 
 @app.route("/createaccount",methods=['POST','GET'])
 def createaccount():
-	print "creating account!"
-	if request.method == "POST":
-		print "post request!"
-	elif request.methond == "GET":
-		print "GET request"
 	print "creating account with: " + request.json['username']+" "+request.json['password']
 	create_account(request.json['username'], request.json['password'])
 	return main()
@@ -107,6 +101,13 @@ def create_games():
 	gamejson = request.get_json()
 	print gamejson
 	maincollection.insert(gamejson)
+
+@app.route("/recordscore",methods = ['POST','GET'])
+def record_score():
+	record_game_score(maincollection, request.get_json())
+
+
+
 
 
 if __name__ == "__main__":
