@@ -117,6 +117,8 @@ def record_score():
 
 @app.route("/updatescore",methods = ['POST','GET'])
 def updatescore():
+	print 'UPDATE_ SCORE JSON:'
+	print request.get_json()
 	update_score(maincollection, request.json['level'], request.json['updated_field'], request.json['value'])
 
 
