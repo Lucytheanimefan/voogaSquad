@@ -103,10 +103,9 @@ def createaccount():
 @app.route("/creategame",methods=['POST','GET'])
 def create_games():
 	print "CREATING GAMES"
-	global db
 	print request.get_json()
 	gamejson = request.get_json()
-	print gamejson
+	#print gamejson
 	maincollection.insert(gamejson)
 
 @app.route("/recordscore",methods = ['POST','GET'])
