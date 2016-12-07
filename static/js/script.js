@@ -19,6 +19,7 @@ function login(username, password) {
 }
 
 $(".glyphicon-off").click(function(){
+    console.log("glyphicon-off clicked");
     logout();
 });
 
