@@ -86,6 +86,13 @@ def login():
 		print "already logged in" 
 	return render_template('index3.html', games = mygames)
 
+@app.route("/logout",methods=['POST','GET'])
+def logout():
+	print "logging out"
+	set_username("")
+	set_maincollection(None)
+	return "Logged out"
+
 
 @app.route("/createaccount",methods=['POST','GET'])
 def createaccount():
