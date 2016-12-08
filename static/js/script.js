@@ -25,8 +25,6 @@ function setLogoutClick() {
     });
 }
 
-setLogoutClick();
-
 function logout() {
     $.ajax({
         type: 'POST',
@@ -86,4 +84,3 @@ function populateDataToDashboard() {
     });
 }
 
-populateDataToDashboard();
