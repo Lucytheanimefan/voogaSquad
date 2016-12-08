@@ -83,8 +83,9 @@ def login():
 		set_maincollection(db[username])
 		set_games()
 	else:
-		print "already logged in" 
-	return render_template('index3.html', games = mygames)
+		return "already logged in" 
+	return "logged in"
+	#return render_template('index3.html', games = mygames)
 
 @app.route("/logout",methods=['POST','GET'])
 def logout():
@@ -98,7 +99,7 @@ def logout():
 def createaccount():
 	print "creating account with: " + request.json['username']+" "+request.json['password']
 	create_account(request.json['username'], request.json['password'])
-	return main()
+	return "created account"
 
 @app.route("/creategame",methods=['POST','GET'])
 def create_games():
