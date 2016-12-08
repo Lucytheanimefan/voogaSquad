@@ -107,21 +107,21 @@ def create_games():
 	gamejson = request.get_json()
 	#print gamejson
 	maincollection.insert(gamejson)
-	return ""
+	return "Successfully created game in creategame"
 
 @app.route("/recordscore",methods = ['POST','GET'])
 def record_score():
 	print "In record_score"
 	print request.get_json()
 	record_game_score(maincollection, request.get_json())
-	return ""
+	return "Successfully recorded score"
 
 @app.route("/updatescore",methods = ['POST','GET'])
 def updatescore():
 	print 'UPDATE_ SCORE JSON:'
 	print request.get_json()
 	update_score(maincollection, request.json['level'], request.json['updated_field'], request.json['value'])
-	return ""
+	return "Successfully Updated Score"
 
 @app.route("/getgamescores", methods = ['GET'])
 def getgamescores():
