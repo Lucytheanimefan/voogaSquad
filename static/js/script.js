@@ -12,16 +12,20 @@ function login(username, password) {
         success: function(response) {
             console.log('in ajax login user');
             console.log(response);
-            
+
         }
     });
 
 }
 
-$(".glyphicon-off").click(function(){
-    console.log("glyphicon-off clicked");
-    logout();
-});
+function setLogoutClick() {
+    $(".glyphicon-off").click(function() {
+        console.log("glyphicon-off clicked");
+        logout();
+    });
+}
+
+setLogoutClick();
 
 function logout() {
     $.ajax({
@@ -36,7 +40,7 @@ function logout() {
         success: function(response) {
             console.log('in ajax login user');
             console.log(response);
-            
+
         }
     });
 
@@ -77,17 +81,9 @@ function populateDataToDashboard() {
             var data = response["result"];
             var newdata = JSON.stringify(eval("(" + data + ")"));
             console.log(newdata);
-            
+
         }
     });
-
 }
 
-
-
-
-
-
-
-
-
+populateDataToDashboard();
