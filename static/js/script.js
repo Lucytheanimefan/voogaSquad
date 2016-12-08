@@ -78,7 +78,7 @@ function populateDataToDashboard() {
             console.log(response);
             var data = response["result"];
             var newdata = eval("(" + data + ")");
-            createLineChart("blah",newdata["gold"])
+            //createLineChart(newdata["time"],newdata["gold"]);
 
         }
     });
