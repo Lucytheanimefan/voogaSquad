@@ -1,4 +1,6 @@
 import datetime
+import JSONEncoder
+from JSONEncoder import *
 
 
 def record_game_score(maincollection, goldlivesleveljson):
@@ -23,3 +25,5 @@ def get_stats(maincollection):
 	scores = maincollection.find({ "type": "gamescore" })
 	newscores = [JSONEncoder().encode(score) for score in scores]
 	print newscores
+	return newscores
+

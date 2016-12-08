@@ -120,6 +120,10 @@ def updatescore():
 	print request.get_json()
 	update_score(maincollection, request.json['level'], request.json['updated_field'], request.json['value'])
 
+@app.route("/getgamescores", methods = ['GET'])
+def getgamescores():
+	data = get_stats(maincollection)
+	return jsonify(result = data)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

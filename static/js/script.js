@@ -62,3 +62,32 @@ function createUser(username, password) {
         }
     });
 }
+
+
+function populateDataToDashboard() {
+    console.log("populateDataToDashboard called")
+    $.ajax({
+        type: 'GET',
+        url: '/getgamescores',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function(response) {
+            console.log("Success populateDataToDashboard");
+            console.log(response);
+            var data = response["result"];
+            var newdata = JSON.stringify(eval("(" + data + ")"));
+            console.log(newdata);
+            
+        }
+    });
+
+}
+
+
+
+
+
+
+
+
+
