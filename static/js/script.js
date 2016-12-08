@@ -77,10 +77,35 @@ function populateDataToDashboard() {
             console.log("Success populateDataToDashboard");
             console.log(response);
             var data = response["result"];
-            var newdata = JSON.stringify(eval("(" + data + ")"));
-            console.log(newdata);
+            var newdata = eval("(" + data + ")");
+            createLineChart("blah",newdata["gold"])
 
         }
     });
 }
 
+/**
+ * [createLineChart description]
+ * @param  {[type]} divElementID [description]
+ * @param  {[type]} data         first element should be string description (would go in the legend/key)
+ * @param  {[type]} dates        [description]
+ * @return {[type]}              [description]
+ */
+function createLineChart(divElementID, data, dates) {
+    var chart = c3.generate({
+        bindto: "#" + divElementID,
+        data: {
+            columns: [
+                data
+            ]
+        },
+        axis: {
+            x: {
+                type: 'category',
+                categories: dates
+            }
+        }
+    });
+
+    return chart;
+}
