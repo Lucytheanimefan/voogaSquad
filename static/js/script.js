@@ -66,7 +66,7 @@ function createUser(username, password) {
 }
 
 
-function populateDataToDashboard() {
+function populateDataToDashboard(divElementID) {
     console.log("populateDataToDashboard called")
     $.ajax({
         type: 'GET',
@@ -78,7 +78,16 @@ function populateDataToDashboard() {
             console.log(response);
             var data = response["result"];
             var newdata = eval("(" + data + ")");
-            //createLineChart(newdata["time"],newdata["gold"]);
+            console.log(newdata)
+            var dat = ["Gold"];
+            var time = [];
+            for (var i=1; i<newdata["gold"].length; i++){
+                dat.push(parseInt(newdata["gold"][i][0]));
+                time.push(newdata["gold"][i][1]);
+            }
+            console.log(dat);
+            console.log(time);
+            createLineChart(divElementID,time,dat);
 
         }
     });
@@ -91,18 +100,19 @@ function populateDataToDashboard() {
  * @param  {[type]} dates        [description]
  * @return {[type]}              [description]
  */
-function createLineChart(divElementID, data, dates) {
+function createLineChart(divElementID, values, times) {
+    console.log($("#"+divElementID));
     var chart = c3.generate({
         bindto: "#" + divElementID,
         data: {
             columns: [
-                data
+                values
             ]
         },
         axis: {
             x: {
                 type: 'category',
-                categories: dates
+                categories: times
             }
         }
     });
