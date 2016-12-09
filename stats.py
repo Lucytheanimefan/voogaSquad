@@ -11,9 +11,9 @@ def record_game_score(maincollection, goldlivesleveljson):
 	dat = goldlivesleveljson
 	dat["time"]=[timestamp]
 	dat["type"]="gamescore"
-	dat["gold"] = [dat["gold"][0], timestamp]
+	dat["gold"] = [[dat["gold"][0], timestamp]]
 	dat["level"] =dat["level"][0]
-	dat["lives"] = [dat["lives"][0], timestamp]
+	dat["lives"] = [[dat["lives"][0], timestamp]]
 	maincollection.insert(dat)
 
 
