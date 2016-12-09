@@ -16,8 +16,11 @@ def record_game_score(maincollection, goldlivesleveljson):
 
 def update_score(maincollection, level, updated_field, num):
 	print "-----------------------------------------------"
-	print "update score with: level "+level+" and "
-	print updated_field updated_field
+	print "update score with: level "
+	print level
+	print "updated field: "
+	print updated_field
+	print "field value: "
 	print num
 	timestamp = '{:%Y-%b-%d %H:%M:%S}'.format(datetime.datetime.now())
 	print maincollection
