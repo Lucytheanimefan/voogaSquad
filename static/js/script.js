@@ -81,13 +81,13 @@ function populateDataToDashboard(divElementID) {
             console.log(newdata)
             var dat = ["Gold"];
             var time = [];
-            for (var i=1; i<newdata["gold"].length; i++){
+            for (var i=0; i<newdata["gold"].length; i++){
                 dat.push(parseInt(newdata["gold"][i][0]));
                 time.push(newdata["gold"][i][1]);
             }
             console.log(dat);
             console.log(time);
-            createLineChart(divElementID,time,dat);
+            createLineChart(divElementID,dat,time);
 
         }
     });
