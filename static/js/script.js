@@ -66,6 +66,23 @@ function createUser(username, password) {
 }
 
 
+function getAllGames() {
+    $.ajax({
+        type: 'GET',
+        url: '/getgamescores',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function(response) {
+            console.log("Success populateDataToDashboard");
+            var data = response["result"];
+            var newdata = eval("(" + data + ")");
+            createGoldGraph("goldgraph", newdata);
+            createLifeGraph("lifegraph", newdata);
+        }
+    });
+}
+
+
 function populateDataToDashboard(divElementID) {
     console.log("populateDataToDashboard called")
     $.ajax({
@@ -75,23 +92,34 @@ function populateDataToDashboard(divElementID) {
         dataType: 'json',
         success: function(response) {
             console.log("Success populateDataToDashboard");
-            console.log(response);
             var data = response["result"];
             var newdata = eval("(" + data + ")");
-            console.log(newdata)
-            var dat = ["Gold"];
-            var time = [];
-            for (var i=0; i<newdata["gold"].length; i++){
-                dat.push(parseInt(newdata["gold"][i][0]));
-                time.push(newdata["gold"][i][1]);
-            }
-            console.log(dat);
-            console.log(time);
-            createLineChart(divElementID,dat,time);
-
+            createGoldGraph("goldgraph", newdata);
+            createLifeGraph("lifegraph", newdata);
         }
     });
 }
+
+function createGoldGraph(divElementID, newdata) {
+    var dat = ["Gold"];
+    var time = [];
+    for (var i = 0; i < newdata["gold"].length; i++) {
+        dat.push(parseInt(newdata["gold"][i][0]));
+        time.push(newdata["gold"][i][1]);
+    }
+    createLineChart(divElementID, dat, time);
+}
+
+function createLifeGraph(divElementID, newdata) {
+    var dat = ["Lives"];
+    var time = [];
+    for (var i = 0; i < newdata["lives"].length; i++) {
+        dat.push(parseInt(newdata["lives"][i][0]));
+        time.push(newdata["lives"][i][1]);
+    }
+    createLineChart(divElementID, dat, time);
+}
+
 
 /**
  * [createLineChart description]
@@ -101,7 +129,7 @@ function populateDataToDashboard(divElementID) {
  * @return {[type]}              [description]
  */
 function createLineChart(divElementID, values, times) {
-    console.log($("#"+divElementID));
+    console.log($("#" + divElementID));
     var chart = c3.generate({
         bindto: "#" + divElementID,
         data: {
