@@ -193,7 +193,11 @@ function createLineChart(divElementID, values, times) {
             columns: [
                 values
             ],
-            type: 'bar'
+            type: 'bar',
+            types:{
+                gold: 'line',
+                lives: 'line'
+            },
         },
         axis: {
             x: {
