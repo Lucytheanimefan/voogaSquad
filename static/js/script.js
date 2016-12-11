@@ -65,22 +65,25 @@ function createUser(username, password) {
     });
 }
 
-
-function getAllGames() {
+function getAllGameTimes() {
+    console.log("getAllGameTimes called");
     $.ajax({
         type: 'GET',
-        url: '/getgamescores',
+        url: '/getgametimes',
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         success: function(response) {
-            console.log("Success populateDataToDashboard");
+            console.log("Success get game times");
             var data = response["result"];
             var newdata = eval("(" + data + ")");
-            createGoldGraph("goldgraph", newdata);
-            createLifeGraph("lifegraph", newdata);
+            console.log(newdata);
+            for (var i = 0; i < newdata["time"]; i++) {
+                console.log(newdata["time"][i]);
+            }
         }
     });
 }
+
 
 
 function populateDataToDashboard(divElementID) {

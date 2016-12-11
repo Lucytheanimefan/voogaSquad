@@ -1,7 +1,7 @@
 import datetime
 import JSONEncoder
 from JSONEncoder import *
-
+import ast
 
 timestamp = None
 
@@ -11,9 +11,9 @@ def todaysdate():
 
 def getAllGameTimes(maincollection):
 	gametimes = maincollection.find({ "type": "timerecord" })
+	print "Game times: "
 	games = [JSONEncoder().encode(game) for game in gametimes]
-	print games
-	return gametimes
+	return games
 
 def record_game_score(maincollection, goldlivesleveljson):
 	global timestamp
@@ -44,6 +44,11 @@ def update_score(maincollection, level, updated_field, num):
 	maincollection.update({'gametime':timestamp}, 
 		{'$push': {updated_field: [num,timestamp]}})
 		
+
+def search_game(maincollection, game_time):
+	game = maincollection.find({ "gametime": game_time})
+	print game
+	return JSONEncoder().encode(game)
 
 def get_stats(maincollection):
 	stats = {}
