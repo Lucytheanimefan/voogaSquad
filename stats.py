@@ -19,7 +19,7 @@ def record_game_score(maincollection, goldlivesleveljson):
 	dat["level"] =dat["level"][0]
 	dat["lives"] = [[dat["lives"][0], timestamp]]
 	maincollection.insert(dat)
-	if (maincollection.find({"type": "timerecord"}).count() > 0):
+	if (maincollection.find({"type": "timerecord"}).count() == 0):
 		timerecord = {}
 		timerecord["type"]="timerecord"
 		timerecord["time"]=[todaysdate()]
