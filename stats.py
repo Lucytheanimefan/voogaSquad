@@ -39,7 +39,7 @@ def record_game_score(maincollection, goldlivesleveljson):
 		{'$push': {"time": timestamp}})
 
 
-def log_end_score(maincollection, data)
+def log_end_score(maincollection, data):
 	data["type"] = "endscore"
 	maincollection.insert(data)
 	
