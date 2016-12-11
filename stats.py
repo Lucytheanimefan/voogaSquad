@@ -70,3 +70,4 @@ def get_stats(maincollection):
 def remove_stats(maincollection):
 	print maincollection
 	maincollection.remove({"type":"gamescore"})
+	maincollection.delete_many()
