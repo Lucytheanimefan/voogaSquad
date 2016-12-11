@@ -150,7 +150,11 @@ def getgamefortime():
 	return get_game_for_time(maincollection, game_time)
 
 
-
+@app.route("/log_end_score",methods=['GET','POST'])
+def logendscore():
+	data = request.get_json()
+	log_end_score(maincollection, data)
+	return "Logged end score of game"
 
 
 
