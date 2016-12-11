@@ -81,7 +81,16 @@ function getAllGameTimes() {
                 console.log("Iterate through newdata['time']");
                 gameTime=newdata["time"][i].toString();
                 console.log(gameTime);
-                populateDataToDashboard(gameTime)
+                $(".games").append('<h1>Game: '+gameTime+'</h1>'+
+                    '<div class="x_content">'+
+                    '<div class="demo-container" style="height:250px">'+
+                    '<div id="goldgraph'+i+'" style="width: 100%; height:250px;"></div>'+
+                    '</div></div>'+
+                    '<div class="x_content">'+
+                            '<div class="demo-container" style="height:250px">'+
+                                '<div id="lifegraph'+i+'" style="width: 100%; height:250px;"></div>'+
+                 '</div></div>')
+                populateDataToDashboard(gameTime, i);
             }
         }
     });
@@ -89,7 +98,7 @@ function getAllGameTimes() {
 
 
 
-function populateDataToDashboard(gameTime) {
+function populateDataToDashboard(gameTime, id_num) {
     console.log("populateDataToDashboard called")
     $.ajax({
         type: 'POST',
@@ -99,13 +108,24 @@ function populateDataToDashboard(gameTime) {
         dataType: 'json',
         success: function(response) {
             console.log("Success populateDataToDashboard");
-            console.log(response);
             var data = response;
-            console.log(data);
-            //var newdata = eval("(" + data + ")");
-            //console.log(newdata);
-            createGoldGraph("goldgraph", data);
-            createLifeGraph("lifegraph", data);
+/*
+             <div class="x_content" id="goldgraphs">
+                            <div class="demo-container" style="height:250px">
+                                <div id="goldgraph" style="width: 100%; height:250px;"></div>
+                            </div>
+                        </div>
+                        <div class="x_content" id="lifegraphs">
+                            <div class="demo-container" style="height:250px">
+                                <div id="lifegraph" style="width: 100%; height:250px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    */
+                   
+
+            createGoldGraph("goldgraph"+id_num, data);
+            createLifeGraph("lifegraph"+id_num, data);
         }
     });
 }
