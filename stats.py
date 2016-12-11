@@ -13,7 +13,7 @@ def record_game_score(maincollection, goldlivesleveljson):
 	timestamp = '{:%Y-%b-%d %H:%M:%S}'.format(datetime.datetime.now())
 	print timestamp 
 	dat = goldlivesleveljson
-	dat["time"]=todaysdate()
+	dat["gametime"]=todaysdate()
 	dat["type"]="gamescore"
 	dat["gold"] = [[dat["gold"], timestamp]]
 	dat["level"] =dat["level"][0]
@@ -41,7 +41,7 @@ def update_score(maincollection, level, updated_field, num):
 	print num
 	timestamp = '{:%Y-%b-%d %H:%M:%S}'.format(datetime.datetime.now())
 	print maincollection
-	maincollection.update({'time':todaysdate()}, 
+	maincollection.update({'gametime':todaysdate()}, 
 		{'$push': {updated_field: [num,timestamp]}})
 		
 
