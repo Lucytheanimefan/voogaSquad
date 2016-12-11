@@ -6,6 +6,7 @@ import ast
 timestamp = None
 
 def todaysdate():
+	print "--------------todaysdate called-----------------"
 	timestamp = '{:%Y-%b-%d %H:%M:%S}'.format(datetime.datetime.now())
 	return timestamp
 
@@ -57,3 +58,6 @@ def get_stats(maincollection):
 	print newscores
 	return newscores
 
+def remove_stats(maincollection):
+	print maincollection
+	maincollection.remove({"type":"gamescore"})

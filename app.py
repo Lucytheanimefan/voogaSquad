@@ -136,6 +136,10 @@ def getgametimes():
 	return jsonify(result = data)
 
 
+@app.route("/remove", methods=['GET'])
+def remove():
+	remove_stats(maincollection)
+	return "success remove"
 
 
 
