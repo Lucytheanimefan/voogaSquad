@@ -9,6 +9,12 @@ def todaysdate():
 	timestamp = '{:%Y-%b-%d %H:%M:%S}'.format(datetime.datetime.now())
 	return timestamp
 
+def getAllGameTimes(maincollection):
+	gametimes = maincollection.find({ "type": "timerecord" })
+	games = [JSONEncoder().encode(game) for game in gametimes]
+	print games
+	return gametimes
+
 def record_game_score(maincollection, goldlivesleveljson):
 	global timestamp
 	print "IN RECORD_GAME_SCORE"
@@ -35,14 +41,6 @@ def record_game_score(maincollection, goldlivesleveljson):
 
 def update_score(maincollection, level, updated_field, num):
 	global timestamp
-	print "-----------------------------------------------"
-	print "update score with: level "
-	print level
-	print "updated field: "
-	print updated_field
-	print "field value: "
-	print num
-	print maincollection
 	maincollection.update({'gametime':timestamp}, 
 		{'$push': {updated_field: [num,timestamp]}})
 		
