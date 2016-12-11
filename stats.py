@@ -41,6 +41,7 @@ def record_game_score(maincollection, goldlivesleveljson):
 
 def log_end_score(maincollection, data):
 	if (maincollection.find({"type": "endscore"}).count() == 0):
+		print "CREATE ENDSCORE RECORD"
 		dat["type"] = "endscore"
 		dat["data"] = data
 		maincollection.insert(dat)
