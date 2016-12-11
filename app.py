@@ -142,9 +142,12 @@ def remove():
 	return "success remove"
 
 
-
-
-
+@app.route("/get_game_for_time", methods=['GET','POST'])
+def getgamefortime():
+	print "In get game for time"
+	game_time = request.json['game_time']
+	print game_time
+	return get_game_for_time(maincollection, game_time)
 
 
 

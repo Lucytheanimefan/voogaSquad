@@ -77,8 +77,11 @@ function getAllGameTimes() {
             var data = response["result"];
             var newdata = eval("(" + data + ")");
             console.log(newdata);
-            for (var i = 0; i < newdata["time"]; i++) {
-                console.log(newdata["time"][i]);
+            for (var i = 0; i < newdata["time"].length; i++) {
+                console.log("Iterate through newdata['time']");
+                gameTime=newdata["time"][i].toString();
+                console.log(gameTime);
+                populateDataToDashboard(gameTime)
             }
         }
     });
@@ -86,19 +89,23 @@ function getAllGameTimes() {
 
 
 
-function populateDataToDashboard(divElementID) {
+function populateDataToDashboard(gameTime) {
     console.log("populateDataToDashboard called")
     $.ajax({
-        type: 'GET',
-        url: '/getgamescores',
+        type: 'POST',
+        url: '/get_game_for_time',
+        data: JSON.stringify({ "game_time": gameTime}),
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         success: function(response) {
             console.log("Success populateDataToDashboard");
-            var data = response["result"];
-            var newdata = eval("(" + data + ")");
-            createGoldGraph("goldgraph", newdata);
-            createLifeGraph("lifegraph", newdata);
+            console.log(response);
+            var data = response;
+            console.log(data);
+            //var newdata = eval("(" + data + ")");
+            //console.log(newdata);
+            createGoldGraph("goldgraph", data);
+            createLifeGraph("lifegraph", data);
         }
     });
 }

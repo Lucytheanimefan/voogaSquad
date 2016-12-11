@@ -46,10 +46,15 @@ def update_score(maincollection, level, updated_field, num):
 		{'$push': {updated_field: [num,timestamp]}})
 		
 
-def search_game(maincollection, game_time):
-	game = maincollection.find({ "gametime": game_time})
-	print game
-	return JSONEncoder().encode(game)
+def get_game_for_time(maincollection, game_time):
+	print "in stats get game for time"
+	print "game time used to search"
+	#print game_time
+	games = maincollection.find({ "gametime": str(game_time)})
+	#print games
+	print "TYPE"
+	data= [JSONEncoder().encode(game) for game in games][0]
+	return data
 
 def get_stats(maincollection):
 	stats = {}
