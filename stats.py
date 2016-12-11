@@ -40,8 +40,14 @@ def record_game_score(maincollection, goldlivesleveljson):
 
 
 def log_end_score(maincollection, data):
-	data["type"] = "endscore"
-	maincollection.insert(data)
+	if (maincollection.find({"type": "endscore"}).count() == 0):
+		dat["type"] = "endscore"
+		dat["data"] = data
+		maincollection.insert(dat)
+	else:
+		maincollection.update({'type':"endscore"}, 
+		{'$push': {"data": data}})
+
 	
 
 def update_score(maincollection, level, updated_field, num):
