@@ -135,7 +135,8 @@ function createLineChart(divElementID, values, times) {
         data: {
             columns: [
                 values
-            ]
+            ],
+            type: 'bar'
         },
         axis: {
             x: {
