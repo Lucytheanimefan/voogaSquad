@@ -4,7 +4,7 @@ from JSONEncoder import *
 
 
 def todaysdate():
-	timestamp = '{:%Y-%b-%d}'.format(datetime.datetime.now())
+	timestamp = '{:%Y-%b-%d %H:%M:%S}'.format(datetime.datetime.now())
 	return timestamp
 
 def record_game_score(maincollection, goldlivesleveljson):
@@ -16,7 +16,7 @@ def record_game_score(maincollection, goldlivesleveljson):
 	dat["gametime"]=todaysdate()
 	dat["type"]="gamescore"
 	dat["gold"] = [[dat["gold"], timestamp]]
-	dat["level"] =dat["level"][0]
+	dat["level"] =[[dat["level"][0], timestamp]]
 	dat["lives"] = [[dat["lives"][0], timestamp]]
 	maincollection.insert(dat)
 	if (maincollection.find({"type": "timerecord"}).count() == 0):
