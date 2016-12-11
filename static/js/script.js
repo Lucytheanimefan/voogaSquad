@@ -81,7 +81,7 @@ function getAllGameTimes() {
                 console.log("Iterate through newdata['time']");
                 gameTime = newdata["time"][i].toString();
                 console.log(gameTime);
-                $(".games").append('<button class = "accordion">Game: ' + gameTime + '</div>' +
+                $(".games").append('<button class = "accordion">Game: ' + gameTime + '</button>' +
                     '<div class="panel">' +
                     '<p>' +
                     '<div class="x_content">' +
