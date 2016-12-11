@@ -3,17 +3,19 @@ import JSONEncoder
 from JSONEncoder import *
 
 
+timestamp = None
+
 def todaysdate():
 	timestamp = '{:%Y-%b-%d %H:%M:%S}'.format(datetime.datetime.now())
 	return timestamp
 
 def record_game_score(maincollection, goldlivesleveljson):
+	global timestamp
 	print "IN RECORD_GAME_SCORE"
 	print goldlivesleveljson
-	timestamp = '{:%Y-%b-%d %H:%M:%S}'.format(datetime.datetime.now())
-	print timestamp 
+	timestamp = todaysdate()
 	dat = goldlivesleveljson
-	dat["gametime"]=todaysdate()
+	dat["gametime"]=timestamp
 	dat["type"]="gamescore"
 	dat["gold"] = [[dat["gold"], timestamp]]
 	dat["level"] =[[dat["level"][0], timestamp]]
@@ -23,15 +25,16 @@ def record_game_score(maincollection, goldlivesleveljson):
 		print "CREATE timee RECORD"
 		timerecord = {}
 		timerecord["type"]="timerecord"
-		timerecord["time"]=[todaysdate()]
+		timerecord["time"]=[timestamp]
 		maincollection.insert(timerecord)
 	else:
 		maincollection.update({'type':"timerecord"}, 
-		{'$push': {"time": todaysdate()}})
+		{'$push': {"time": timestamp}})
 
 	
 
 def update_score(maincollection, level, updated_field, num):
+	global timestamp
 	print "-----------------------------------------------"
 	print "update score with: level "
 	print level
@@ -39,9 +42,8 @@ def update_score(maincollection, level, updated_field, num):
 	print updated_field
 	print "field value: "
 	print num
-	timestamp = '{:%Y-%b-%d %H:%M:%S}'.format(datetime.datetime.now())
 	print maincollection
-	maincollection.update({'gametime':todaysdate()}, 
+	maincollection.update({'gametime':timestamp}, 
 		{'$push': {updated_field: [num,timestamp]}})
 		
 
