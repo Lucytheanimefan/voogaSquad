@@ -44,7 +44,7 @@ def log_end_score(maincollection, data):
 	if (maincollection.find({"type": "endscore"}).count() == 0):
 		print "CREATE ENDSCORE RECORD"
 		dat["type"] = "endscore"
-		dat["data"] = data
+		dat["data"] = [data]
 		maincollection.insert(dat)
 	else:
 		maincollection.update({'type':"endscore"}, 
