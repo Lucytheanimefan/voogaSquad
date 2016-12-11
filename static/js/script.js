@@ -79,20 +79,61 @@ function getAllGameTimes() {
             console.log(newdata);
             for (var i = 0; i < newdata["time"].length; i++) {
                 console.log("Iterate through newdata['time']");
-                gameTime=newdata["time"][i].toString();
+                gameTime = newdata["time"][i].toString();
                 console.log(gameTime);
-                $(".games").append('<h1>Game: '+gameTime+'</h1>'+
-                    '<div class="x_content">'+
-                    '<div class="demo-container" style="height:250px">'+
-                    '<div id="goldgraph'+i+'" style="width: 100%; height:250px;"></div>'+
-                    '</div></div>'+
-                    '<div class="x_content">'+
-                            '<div class="demo-container" style="height:250px">'+
-                                '<div id="lifegraph'+i+'" style="width: 100%; height:250px;"></div>'+
-                 '</div></div>')
+                $(".games").append('<button class = "accordion">Game: ' + gameTime + '</div>' +
+                    '<div class="panel">' +
+                    '<p>' +
+                    '<div class="x_content">' +
+                    '<div class="demo-container" style="height:250px">' +
+                    '<div id="goldgraph' + i + '" style="width: 100%; height:250px;"></div>' +
+                    '</div></div>' +
+                    '<div class="x_content">' +
+                    '<div class="demo-container" style="height:250px">' +
+                    '<div id="lifegraph' + i + '" style="width: 100%; height:250px;"></div>' +
+                    '</div></div></p></div>')
                 populateDataToDashboard(gameTime, i);
             }
+
+            dropDownInteractivity();
         }
+    });
+}
+
+function dropDownInteractivity() {
+
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].onclick = function() {
+            console.log("Accordion clicked");
+            this.classList.toggle("active");
+            this.nextElementSibling.classList.toggle("show");
+        }
+    }
+}
+
+
+
+function initDropDown() {
+    console.log($(".header"));
+    $(".header").click(function() {
+
+        console.log("header clicked");
+        $header = $(this);
+        //getting the next element
+        $content = $header.next();
+        //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+        $content.slideToggle(500, function() {
+            //execute this after slideToggle is done
+            //change text of header based on visibility of content div
+            $header.text(function() {
+                //change text based on condition
+                return $content.is(":visible") ? "Collapse" : "Expand";
+            });
+        });
+
     });
 }
 
@@ -103,29 +144,15 @@ function populateDataToDashboard(gameTime, id_num) {
     $.ajax({
         type: 'POST',
         url: '/get_game_for_time',
-        data: JSON.stringify({ "game_time": gameTime}),
+        data: JSON.stringify({ "game_time": gameTime }),
         contentType: 'application/json; charset=utf-8',
         dataType: 'json',
         success: function(response) {
             console.log("Success populateDataToDashboard");
             var data = response;
-/*
-             <div class="x_content" id="goldgraphs">
-                            <div class="demo-container" style="height:250px">
-                                <div id="goldgraph" style="width: 100%; height:250px;"></div>
-                            </div>
-                        </div>
-                        <div class="x_content" id="lifegraphs">
-                            <div class="demo-container" style="height:250px">
-                                <div id="lifegraph" style="width: 100%; height:250px;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    */
-                   
 
-            createGoldGraph("goldgraph"+id_num, data);
-            createLifeGraph("lifegraph"+id_num, data);
+            createGoldGraph("goldgraph" + id_num, data);
+            createLifeGraph("lifegraph" + id_num, data);
         }
     });
 }
