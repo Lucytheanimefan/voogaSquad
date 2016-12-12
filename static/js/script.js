@@ -263,7 +263,8 @@ function createLineChart(divElementID, values, times) {
         axis: {
             x: {
                 type: 'category',
-                categories: times
+                categories: times,
+                show:false
             }
         }
     });
