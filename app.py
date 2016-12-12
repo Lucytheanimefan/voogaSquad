@@ -157,7 +157,10 @@ def logendscore():
 	return "Logged end score of game"
 
 
-
+@app.route("/get_end_scores",methods=['GET'])
+def getendscore():
+	data = get_end_scores(maincollection)
+	return jsonify(result=data) 
 
 
 

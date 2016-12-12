@@ -6,6 +6,7 @@
             <div class="col-md-3 col-sm-3 col-xs-6 tile">
                 <span>Highest Amount of Gold</span>
                 <h2 id="highestgold">231,809</h2>
+                <p id="goldtime" ></p>
                 <span class="sparkline_one" style="height: 160px;">
                       <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                   </span>
@@ -13,6 +14,7 @@
             <div class="col-md-3 col-sm-3 col-xs-6 tile">
                 <span>Highest Level</span>
                 <h2 id="highestlevel">$ 231,809</h2>
+                <p id="leveltime" ></p>
                 <span class="sparkline_one" style="height: 160px;">
                       <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                   </span>
@@ -25,8 +27,9 @@
                   </span>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-6 tile">
-                <span>Longest Game</span>
-                <h2 id="longestgame">231,809</h2>
+                <span>Highest Number of Lives</span>
+                <h2 id="highestlives">231,809</h2>
+                <p id="livestime" ></p>
                 <span class="sparkline_one" style="height: 160px;">
                       <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                   </span>
@@ -86,6 +89,7 @@
 <script type="text/javascript">
 setLogoutClick();
 getAllGameTimes();
+getEndScores();
 
 //dropDownInteractivity();
 </script>

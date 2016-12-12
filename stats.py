@@ -80,3 +80,12 @@ def remove_stats(maincollection):
 	print maincollection
 	maincollection.remove({"type":"gamescore"})
 	maincollection.delete_many({})
+
+
+def get_end_scores(maincollection):
+	top_scores = {}
+	scores = maincollection.find({"type":"endscore"})
+	data= [JSONEncoder().encode(score) for score in scores]
+	print data
+	return data
+	

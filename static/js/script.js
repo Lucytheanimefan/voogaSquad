@@ -138,6 +138,67 @@ function initDropDown() {
 }
 
 
+function getEndScores() {
+    $.ajax({
+        type: 'GET',
+        url: '/get_end_scores',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function(response) {
+            console.log("Success getEndScores");
+            var data = response["result"];
+            var newdata = eval("(" + data + ")");
+            var dat = newdata["data"];
+            console.log(dat);
+            var topScores = findTopScores(dat);
+            console.log(topScores);
+            populateTopScores(topScores);
+        }
+    });
+}
+
+function findTopScores(dat) {
+    var topGold = 0;
+    var topGoldTime = "";
+    var topLevel = 0;
+    var topLevelTime = "";
+    var topLives = 0;
+    var topLivesTime = "";
+    for (var i = 0; i < dat.length; i++) {
+        if (parseInt(dat[i]["gold"]) >= topGold) {
+            topGold = parseInt(dat[i]["gold"]);
+            topGoldTime = dat[i]["timestamp"]
+            console.log("topGoldTIme: " + topGoldTime)
+        }
+        if (parseInt(dat[i]["level"]) >= topLevel) {
+            console.log("In leve lif statement");
+            topLevel = parseInt(dat[i]["level"]);
+            topLevelTime = dat[i]["timestamp"]
+            console.log("topLevelTime: " + topLevelTime);
+        }
+        if (parseFloat(dat[i]["lives"]) >= topLives) {
+            console.log("in lives if statement");
+            topLives = parseInt(dat[i]["lives"]);
+            topLivesTime = dat[i]["timestamp"];
+            console.log("topLivesTime: " + topLivesTime);
+        }
+        console.log("Looping in findTopScores");
+    }
+
+    var data = { "topGold": [topGold, topGoldTime], "topLevel": [topLevel, topLevelTime], "topLives": [topLives, topLivesTime] }
+
+    return data;
+}
+
+
+function populateTopScores(scores) {
+    $("#highestgold").html(scores['topGold'][0]);
+    $("#highestlevel").html(scores['topLevel'][0]);
+    $("#highestlives").html(scores['topLives'][0]);
+    $("#goldtime").html(scores['topGold'][1]);
+    $("#leveltime").html(scores['topLevel'][1]);
+    $("#livestime").html(scores['topLives'][1]);
+}
 
 function populateDataToDashboard(gameTime, id_num) {
     console.log("populateDataToDashboard called")
@@ -194,7 +255,7 @@ function createLineChart(divElementID, values, times) {
                 values
             ],
             type: 'bar',
-            types:{
+            types: {
                 gold: 'line',
                 lives: 'line'
             },
