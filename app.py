@@ -162,7 +162,9 @@ def getendscore():
 	data = get_end_scores(maincollection)
 	return jsonify(result=data) 
 
-
+@app.route("/num_games",methods=['GET'])
+def getnumgames():
+	return str(get_num_games_played(maincollection))
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

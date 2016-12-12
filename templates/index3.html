@@ -5,31 +5,31 @@
         <div class="row top_tiles" style="margin: 10px 0;">
             <div class="col-md-3 col-sm-3 col-xs-6 tile">
                 <span>Highest Amount of Gold</span>
-                <h2 id="highestgold">231,809</h2>
-                <p id="goldtime" ></p>
+                <h2 id="highestgold"></h2>
+                <p id="goldtime"></p>
                 <span class="sparkline_one" style="height: 160px;">
                       <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                   </span>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-6 tile">
                 <span>Highest Level</span>
-                <h2 id="highestlevel">$ 231,809</h2>
-                <p id="leveltime" ></p>
+                <h2 id="highestlevel"></h2>
+                <p id="leveltime"></p>
                 <span class="sparkline_one" style="height: 160px;">
                       <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                   </span>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-6 tile">
                 <span>Total Number of Plays</span>
-                <h2 id="numPlays">231,809</h2>
+                <h2 id="numPlays"></h2>
                 <span class="sparkline_two" style="height: 160px;">
                       <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                   </span>
             </div>
             <div class="col-md-3 col-sm-3 col-xs-6 tile">
                 <span>Highest Number of Lives</span>
-                <h2 id="highestlives">231,809</h2>
-                <p id="livestime" ></p>
+                <h2 id="highestlives"></h2>
+                <p id="livestime"></p>
                 <span class="sparkline_one" style="height: 160px;">
                       <canvas width="200" height="60" style="display: inline-block; vertical-align: top; width: 94px; height: 30px;"></canvas>
                   </span>
@@ -56,33 +56,6 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="x_panel fixed_height_320">
-                    <div class="x_title">
-                        <h2>App Devices <small>Sessions</small></h2>
-                    </div>
-                    <div class="x_content">
-                        <h4>App Versions</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="x_panel fixed_height_320">
-                    <div class="x_title">
-                        <h2>Daily users <small>Sessions</small></h2>
-                        <ul class="nav navbar-right panel_toolbox">
-                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                            <li><a class="close-link"><i class="fa fa-close"></i></a>
-                            </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-             
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 {% endblock %} {% block scripts %}
@@ -90,7 +63,7 @@
 setLogoutClick();
 getAllGameTimes();
 getEndScores();
-
+getNumGames();
 //dropDownInteractivity();
 </script>
 {% endblock %}

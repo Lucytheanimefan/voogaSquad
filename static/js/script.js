@@ -137,6 +137,21 @@ function initDropDown() {
     });
 }
 
+function getNumGames(){
+     $.ajax({
+        type: 'GET',
+        url: '/num_games',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function(response) {
+            console.log("Success get num games");
+            console.log(response);
+            $("#numPlays").html(response);
+            
+        }
+    });
+
+}
 
 function getEndScores() {
     $.ajax({

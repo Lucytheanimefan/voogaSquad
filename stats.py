@@ -88,4 +88,7 @@ def get_end_scores(maincollection):
 	data= [JSONEncoder().encode(score) for score in scores]
 	print data
 	return data
+
+def get_num_games_played(maincollection):
+	return maincollection.find({"type":"gamescore"}).count()
 	
