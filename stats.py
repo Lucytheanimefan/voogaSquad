@@ -28,6 +28,13 @@ def record_actual_score(maincollection, score):
 		maincollection.update({'type':"myscore"}, 
 		{'$push': {"data": [timestamp, score]}})
 
+def get_actual_score(maincollection):
+	stats = {}
+	scores = maincollection.find({ "type": "myscore" })
+	newscores = [JSONEncoder().encode(score) for score in scores]
+	print newscores
+	return newscores
+
 def record_game_score(maincollection, goldlivesleveljson):
 	global timestamp
 	print "IN RECORD_GAME_SCORE"

@@ -100,6 +100,32 @@ function getAllGameTimes() {
     });
 }
 
+function getActualScores() {
+    console.log("get actual scores called");
+    $.ajax({
+        type: 'GET',
+        url: '/get_actual_score',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        success: function(response) {
+            console.log("Success get game times");
+            var data = response["result"];
+            var newdata = eval("(" + data + ")");
+            console.log(newdata);
+            var timeArr = [];
+            var scores = ["Scores"];
+            for (var i = 0; i < newdata["data"].length; i++) {
+                timeArr.push(newdata["data"][i][0]);
+                scores.push(newdata["data"][i][1]);
+            }
+
+            createLineChart("topScores", scores,timeArr);
+        }
+    });
+}
+
+
+
 function dropDownInteractivity() {
 
     var acc = document.getElementsByClassName("accordion");
@@ -240,7 +266,7 @@ function createGoldGraph(divElementID, newdata) {
         dat.push(parseInt(newdata["gold"][i][0]));
         time.push(newdata["gold"][i][1]);
     }
-    createLineChart(divElementID, dat, time);
+    createBarChart(divElementID, dat, time);
 }
 
 function createLifeGraph(divElementID, newdata) {
@@ -250,17 +276,43 @@ function createLifeGraph(divElementID, newdata) {
         dat.push(parseInt(newdata["lives"][i][0]));
         time.push(newdata["lives"][i][1]);
     }
-    createLineChart(divElementID, dat, time);
+    createBarChart(divElementID, dat, time);
 }
 
 
 /**
- * [createLineChart description]
+ * [createBarChart description]
  * @param  {[type]} divElementID [description]
  * @param  {[type]} data         first element should be string description (would go in the legend/key)
  * @param  {[type]} dates        [description]
  * @return {[type]}              [description]
  */
+function createBarChart(divElementID, values, times) {
+    console.log($("#" + divElementID));
+    var chart = c3.generate({
+        bindto: "#" + divElementID,
+        data: {
+            columns: [
+                values
+            ],
+            type: 'bar',
+            types: {
+                gold: 'line',
+                lives: 'line'
+            },
+        },
+        axis: {
+            x: {
+                type: 'category',
+                categories: times,
+                show:false
+            }
+        }
+    });
+
+    return chart;
+}
+
 function createLineChart(divElementID, values, times) {
     console.log($("#" + divElementID));
     var chart = c3.generate({

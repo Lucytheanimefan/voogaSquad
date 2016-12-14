@@ -160,6 +160,9 @@ def logendscore():
 	log_end_score(maincollection, data)
 	return "Logged end score of game"
 
+@app.route("/get_actual_score", methods = ['GET'])
+def getActualScore():
+	return jsonify(result=get_actual_score(maincollection))
 
 @app.route("/get_end_scores",methods=['GET'])
 def getendscore():
