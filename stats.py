@@ -16,6 +16,18 @@ def getAllGameTimes(maincollection):
 	games = [JSONEncoder().encode(game) for game in gametimes]
 	return games
 
+def record_actual_score(maincollection, score):
+	timestamp = todaysdate()
+	if (maincollection.find({"type": "myscore"}).count() == 0):
+		print "CREATE score RECORD"
+		scorerecord = {}
+		scorerecord["type"]="myscore"
+		scorerecord["data"]=[[timestamp, score]]
+		maincollection.insert(scorerecord)
+	else:
+		maincollection.update({'type':"myscore"}, 
+		{'$push': {"data": [timestamp, score]}})
+
 def record_game_score(maincollection, goldlivesleveljson):
 	global timestamp
 	print "IN RECORD_GAME_SCORE"
@@ -91,4 +103,5 @@ def get_end_scores(maincollection):
 
 def get_num_games_played(maincollection):
 	return maincollection.find({"type":"gamescore"}).count()
-	
+
+
