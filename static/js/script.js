@@ -313,6 +313,7 @@ function createBarChart(divElementID, values, times) {
     return chart;
 }
 
+
 function createLineChart(divElementID, values, times) {
     console.log($("#" + divElementID));
     var chart = c3.generate({
